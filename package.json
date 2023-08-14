@@ -1,0 +1,15 @@
+{
+  "name": "windscribe-ovpn",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/cli-progress": "^3.11.0",
+    "cli-progress": "^3.12.0"
+  }
+}
