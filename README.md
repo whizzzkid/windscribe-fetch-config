@@ -26,6 +26,10 @@ bun install
 
 - Step 4: You should have all configs in `./output` directory. You can now zip them up and upload them to your router.
 
+## Rate Limiting
+
+Windscribe is smart, has this API rate limited, so you can only download 20 configs per minute-ish. This script will automatically wait and retry till all configs are downloaded and validated.
+
 ## Acknowledgements
 
 This project was created using `bun init` in bun v0.6.1. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
