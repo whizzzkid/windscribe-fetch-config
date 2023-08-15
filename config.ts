@@ -3,6 +3,7 @@ export const protocol = 'UDP';
 export const version = '3b';
 export const port = '54783';
 export const outputDir = 'output';
+export const workerCount = 4;
 export const sessionAuthHash = '';
 export const locations = [
     '394:Accra - Best Jollof',
