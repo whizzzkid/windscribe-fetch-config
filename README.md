@@ -20,9 +20,9 @@ bun install
 - Step 2: Make sure to copy the `ws_session_auth_hash` cookie from the windscribe website and paste it into the `config.ts` file under `authSessionHash`
 - Step 3: Run the script
 
-    ```bash
-        bun run index.ts
-    ```
+  ```bash
+      bun run index.ts
+  ```
 
 - Step 4: You should have all configs in `./output` directory. You can now zip them up and upload them to your router.
 

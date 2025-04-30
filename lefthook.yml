@@ -1,0 +1,19 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: Prettier
+      glob: '**/*.{js,jsx,ts,tsx,json,md,yml,yaml,gitignore}'
+      run: bun fmt
+      stage_fixed: true
+
+post-merge: &deps_install
+  files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
+  jobs:
+    - name: install-dependencies
+      glob:
+        - 'package.json'
+        - 'bun.lockb'
+      run: bun install
+
+post-checkout:
+  <<: *deps_install

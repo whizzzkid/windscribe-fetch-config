@@ -2,8 +2,13 @@
   "name": "windscribe-ovpn",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "fmt": "prettier --write ."
+  },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "lefthook": "1.11.12",
+    "prettier": "3.5.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
