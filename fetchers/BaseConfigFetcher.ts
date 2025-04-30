@@ -6,9 +6,10 @@ export class BaseConfigFetcher implements ConfigFetcher {
   readonly configParams!: (location: string) => URLSearchParams;
   readonly validationString!: string;
   readonly extension!: string;
+  readonly fileName = (location: string, extension:string) => `${location.replace(/[\s:]/g, '_')}.${extension}`
 
   async writeConfig (location: string, config: string, extension: string): Promise<void> {
-    await Bun.write(`${outputDir}/${location.replace(/[\s:]/g, '_')}.${extension}`, config);
+    await Bun.write(`${outputDir}/${this.fileName(location, extension)}`, config);
   }
 
   async authenticatedFetch (url: string, body: URLSearchParams): Promise<string> {

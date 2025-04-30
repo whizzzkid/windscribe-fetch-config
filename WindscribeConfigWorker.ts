@@ -1,4 +1,5 @@
 import cliProgress from 'cli-progress';
+import { waitTime } from './config';
 
 export interface ConfigFetcher {
     fetchAndWrite (location: string): Promise<void>;
@@ -27,9 +28,8 @@ export class WindscribeConfigWorker {
             this.progress.increment();
         } catch (error) {
             // Retry
-            console.error(error);
             this.locationsRef.push(location);
-            await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+            await new Promise(resolve => setTimeout(resolve, waitTime));
         }
 
         await this.run();
