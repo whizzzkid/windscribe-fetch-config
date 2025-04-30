@@ -2,6 +2,11 @@ import { ConfigFetcher } from '../WindscribeConfigWorker';
 import { outputDir, sessionAuthHash } from '../config';
 
 export class BaseConfigFetcher implements ConfigFetcher {
+  readonly apiUrl!: string;
+  readonly configParams!: (location: string) => URLSearchParams;
+  readonly validationString!: string;
+  readonly extension!: string;
+
   async writeConfig (location: string, config: string, extension: string): Promise<void> {
     await Bun.write(`${outputDir}/${location.replace(/[\s:]/g, '_')}.${extension}`, config);
   }
@@ -26,7 +31,20 @@ export class BaseConfigFetcher implements ConfigFetcher {
     }
   }
 
-  fetchAndWrite (_location: string): Promise<void> {
-    throw new Error('Not Implemented');
+  fetchAndWrite (location: string): Promise<void> {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        const config = await this.authenticatedFetch(this.apiUrl, this.configParams(location));
+
+        if (config.includes(this.validationString)) {
+          await this.writeConfig(location, config, this.extension);
+          return resolve();
+        }
+
+        reject(new Error(`Retry: ${location} - ${config}`));
+      } catch (error) {
+        reject(error);
+      }
+    })
   }
 }
