@@ -17,7 +17,8 @@ export class OvpnConfigFetcher
   readonly validationString = 'client';
   readonly extension = ovpn.extension;
   readonly fileName = (location: string, extension: string) => {
-    const [city, vanity] = [...location.matchAll(/[a-zA-Z]+/gi)].flat();
-    return `${city}-${vanity}-${ovpn.protocol.toLocaleLowerCase()}.${extension}`;
+    const { city, vanity } =
+      /:(?<city>[^-]+)\s*-\s*(?<vanity>[^$]+)/gi.exec(location)?.groups ?? {};
+    return `${city.replaceAll(' ', '')}-${vanity.replaceAll(' ', '')}-${ovpn.protocol.toLocaleLowerCase()}.${extension}`;
   };
 }
